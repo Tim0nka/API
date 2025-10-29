@@ -1,18 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Аудио-плеер</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <input id="city">
-    <div id="city-divs">
-    <button id = "showAll">Показать все</button>
-    <button id = "showAll">Показать все</button>
-    <button id = "showAll">Показать все</button>
-    <button id = "showAll">Показать все</button>
+    <div class="container">
+        <header class="player-header">
+            <h1>Музыкальный плеер</h1>
+        </header>
+        
+        <main class="player-main">
+            <section class="tracks-section" id="tracksList">
+                <div class="section-header">
+                    <h2>Библиотека треков</h2>
+                </div>
+                <div class="tracks-grid" id="tracksContainer"></div>
+            </section>
+
+            <section class="player-section" id="player">
+                <button class="nav-button" id="backBtn">
+                    <svg class="nav-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                    К списку треков
+                </button>
+                
+                <div class="track-display">
+                    <div class="cover-wrapper">
+                        <img src="" alt="Обложка трека" class="track-cover" id="playerCover">
+                    </div>
+                    <div class="track-details">
+                        <h2 class="track-title" id="playerTitle">Название трека</h2>
+                        <p class="track-artist" id="playerArtist">Исполнитель</p>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="time-display">
+                        <span class="current-time" id="currentTime">0:00</span>
+                        <span class="duration" id="duration">0:00</span>
+                    </div>
+                    <div class="progress-bar-container" id="progressContainer">
+                        <div class="progress-fill" id="progressBar"></div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="control-btn" id="shuffleBtn" aria-label="Перемешать">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+                        </svg>
+                    </button>
+                    <button class="control-btn" id="prevBtn" aria-label="Предыдущий">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                        </svg>
+                    </button>
+                    <button class="play-btn" id="playBtn" aria-label="Воспроизвести">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </button>
+                    <button class="pause-btn" id="pauseBtn" aria-label="Пауза" style="display: none;">
+                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                        </svg>
+                    </button>
+                    <button class="control-btn" id="nextBtn" aria-label="Следующий">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                        </svg>
+                    </button>
+                    <button class="control-btn" id="repeatBtn" aria-label="Повтор">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="volume-control">
+                    <span class="volume-icon" id="volumeIcon">
+                        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                        </svg>
+                    </span>
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="70">
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn" id="lyricsBtn">
+                        <svg class="action-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                        </svg>
+                        Текст песни
+                    </button>
+                    <button class="action-btn" id="downloadBtn">
+                        <svg class="action-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                        </svg>
+                        Скачать
+                    </button>
+                </div>
+
+                <div class="lyrics-panel" id="lyricsContainer">
+                    <h3>Текст песни</h3>
+                    <div class="lyrics-text" id="lyricsContent">Текст песни появится здесь...</div>
+                </div>
+            </section>
+        </main>
     </div>
+
+    <audio id="audioPlayer"></audio>
     <script src="script.js"></script>
 </body>
 </html>
